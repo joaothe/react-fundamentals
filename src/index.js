@@ -4,15 +4,11 @@ import './index.css';
 
 
 //Componente quadrado que me retorna a div quadrado com o numero
-class Square extends React.Component {
-  render() {
-    return (
-      <button className="square" onClick={() => this.props.onClick()}>
-        {this.props.value}
-      </button>
-    );
-  }
-}
+const Square = (props) => (
+  <button className="square" onClick={props.onClick}>
+    {props.value}
+  </button>
+)
 
 /*Componente que retorna os 9 quadrados e cada quadrado chama o metodo renderSquare que
 retorna o quadrado com o value que a pessoa passar quando chama o metodo */
@@ -21,8 +17,16 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
-    }
+      xIsNext: true,
+    };
   }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({squares : squares});
+  }
+
   renderSquare(i) {
     return (
       <Square
